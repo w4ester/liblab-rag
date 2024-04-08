@@ -3,7 +3,7 @@ import app_user as lu
 import api_bots as ab 
 import app_utils as au 
 import app_component as ac 
-import random as r 
+import secrets
 
 st.set_page_config(
     page_title="GPT Lab - Lounge",
@@ -62,7 +62,7 @@ def view_bot_grid(bot_dict, button_disabled=False, show_bot_id=False):
 
 b = ab.bots()
 sb = b.get_bots(is_show_cased=True)
-r.shuffle(sb)
+secrets.SystemRandom().shuffle(sb)
 
 
 st.title("Lounge")
@@ -88,14 +88,14 @@ else:
         view_bot_grid(bot_dict=sb, button_disabled=button_enabled)
     with my_bots:
         if len(mb) > 0:
-            r.shuffle(mb)
+            secrets.SystemRandom().shuffle(mb)
             st.markdown("\n")
             st.markdown("##### Chat with your AI assistants!")
             view_bot_grid(bot_dict=mb, button_disabled=button_enabled, show_bot_id=True)
         else:
             st.markdown("\n")
             col1, col2, col3 = st.columns([1, 4, 2])
-            col1.image("https://api.dicebear.com/5.x/bottts-neutral/svg?seed={0}".format(r.randint(0,168)*r.randint(0,888)), width=50)
+            col1.image("https://api.dicebear.com/5.x/bottts-neutral/svg?seed={0}".format(secrets.SystemRandom().randint(0,168)*secrets.SystemRandom().randint(0,888)), width=50)
             col2.write("You have not created your own AI assistants yet.")
             clicked = col2.button("Visit the Lab")
             if clicked:
